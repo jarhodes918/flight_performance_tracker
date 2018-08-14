@@ -1,31 +1,21 @@
 import * as express from 'express';
 
-import StockCtrl from './controllers/stock';
+import MetricCtrl from './controllers/metric';
 import UserCtrl from './controllers/user';
-import Stock from './models/stock';
 import User from './models/user';
  
 export default function setRoutes(app) {
 
   const router = express.Router();
 
-  const stockCtrl = new StockCtrl();
+  const metricCtrl = new MetricCtrl();
   const userCtrl = new UserCtrl();
   
-  // Stock
-  router.route('/stocks').get(stockCtrl.getAll);
-  router.route('/stocks/count').get(stockCtrl.count);
-  router.route('/stock').post(stockCtrl.insert);
-  router.route('/stock/:id').get(stockCtrl.get);
-  router.route('/stock/:id').put(stockCtrl.update);
-  router.route('/stock/:id').delete(stockCtrl.delete);
-  router.route('/stocks/:user').get(stockCtrl.GetStocksByUser);
-  router.route('/stock/delete/:userstock').delete(stockCtrl.DeleteStockByUser);
-  router.route('/stock/get/:userstock').get(stockCtrl.GetStockByUser);
-  router.route('/metrics/:info').get(stockCtrl.GetMetrics);
+  // Data
+  router.route('/months/:info').get(metricCtrl.GetMonths);
+  router.route('/airports/:info').get(metricCtrl.GetAirports);
+  router.route('/metrics/:info').get(metricCtrl.GetMetrics);
 
-  // Close Quote
-  router.route('/latest/price/:ticker').get(stockCtrl.GetlatestPrice);
 
   // Users
   router.route('/login').post(userCtrl.login);

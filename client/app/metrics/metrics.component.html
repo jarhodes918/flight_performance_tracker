@@ -1,0 +1,96 @@
+<app-loading [condition]="isLoading"></app-loading>
+
+<app-toast [message]="toast.message"></app-toast>
+
+<div class="card mb-3" *ngIf="!isLoading">
+		<h4 class="card-header">Start Month:
+      <select id="tdStartDate" (change)="getMetrics('startDate')">
+        <option selected disabled>Select Start Month</option>
+        <option>All</option>
+        <option *ngFor="let startMonth of startMonths">{{startMonth.month}}</option>
+      </select>&emsp;End Month:
+      <select id="tdEndDate" (change)="getMetrics('endDate')">
+        <option selected disabled>Select End Month</option>
+        <option>All</option>
+        <option *ngFor="let endMonth of endMonths">{{endMonth.month}}</option>
+      </select>&emsp;From:
+      <select id="tdOrigin" (change)="getMetrics('origin')">
+        <option selected disabled>Select Origin</option>
+        <option>All</option>
+        <option *ngFor="let fromport of fromports">{{fromport.airport_code}}</option>
+      </select>&emsp;To:
+      <select id="tdDestination" (change)="getMetrics('destination')">
+        <option selected disabled>Select Destination</option>
+        <option>All</option>
+        <option *ngFor="let toport of toports">{{toport.airport_code}}</option>
+      </select>&emsp;Airlines:
+      <select id="tdAirlines" (change)="getMetrics('airlines')">
+        <option selected disabled>Select Airlines</option>
+        <option>All</option>
+        <option>Big 4</option>
+      </select>                          
+    </h4>
+    <div class="card-body">
+      <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Airline</th>
+            <th scope="col">Scheduled</th>
+            <th scope="col">A14</th>
+            <th scope="col">CF</th>
+            <th scope="col">D0</th>
+            <th scope="col">B0</th>
+            <th scope="col">Cancelled</th>
+            <th scope="col">Carrier</th>
+            <th scope="col">Weather</th>
+            <th scope="col">NAS</th>
+            <th scope="col">Security</th>
+            <th scope="col">Delayed</th>
+            <th scope="col">Carrier</th>
+            <th scope="col">Weather</th>
+            <th scope="col">NAS</th>
+            <th scope="col">Security</th>
+            <th scope="col">LAE</th>
+          </tr>
+        </thead>
+  
+        <tbody *ngIf="metrics.length === 0">
+          <tr>
+            <td colspan="17">There aren't any flights to track. Please select a valide set of flight information above.</td>
+          </tr>  
+        </tbody>
+  
+  
+        <tbody *ngIf="!isEditing">
+          <tr *ngFor="let metric of metrics">
+            <td>{{metric.carrier}}</td>
+            <td>{{metric.scheduled}}</td>
+            <td>{{metric.aFourteen}}</td>
+            <td>{{metric.cf}}</td>
+            <td>{{metric.dZero}}</td>
+            <td>{{metric.bZero}}</td>
+            <td>{{metric.cancelled}}</td>
+            <td>{{metric.carrierCancel}}</td>
+            <td>{{metric.weatherCancel}}</td>
+            <td>{{metric.nasCancel}}</td>
+            <td>{{metric.securityCancel}}</td>
+            <td>{{metric.lateArrivals}}</td>
+            <td>{{metric.carrierDelay}}</td>
+            <td>{{metric.weatherDelay}}</td>
+            <td>{{metric.nasDelay}}</td>
+            <td>{{metric.securityDelay}}</td>
+            <td>{{metric.laeDelay}}</td>
+          </tr>  
+        </tbody>  
+    </table>
+
+    <div class="card">
+      <h4 class="card-header">Chart</h4>
+        <svg width="1850" height="200"></svg>
+    </div>
+
+    <canvas id="mychart"></canvas>    
+
+  </div>
+</div>
+
