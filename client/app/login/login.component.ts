@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.auth.login(this.loginForm.value).subscribe(
-      res => this.router.navigate(['/stocks']),
+      res => this.router.navigate(['/metrics']),
       error => this.toast.setMessage('invalid username or password!', 'danger')
     );
   }
